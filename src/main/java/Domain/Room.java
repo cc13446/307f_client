@@ -5,11 +5,19 @@ import Enum.*;
 public class Room {
     private int roomId;
     private State state;
+    private Mode mode;
     private Double currentTemp;
     private Double targetTemp;
     private FanSpeed fanSpeed;
     private double fee;
     private double feeRate;
+
+    public Mode getMode() {
+        return mode;
+    }
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
 
     public int getRoomId() {
         return roomId;
@@ -72,6 +80,7 @@ public class Room {
         return "Room{" +
                 "roomId=" + roomId +
                 ", state=" + state +
+                ", mode=" + mode +
                 ", currentTemp=" + currentTemp +
                 ", targetTemp=" + targetTemp +
                 ", fanSpeed=" + fanSpeed +

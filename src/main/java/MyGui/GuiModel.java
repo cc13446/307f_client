@@ -1,15 +1,13 @@
 package MyGui;
 
 import Domain.Room;
-import MyHttp.HttpRequestModel;
 import MyListener.GuiListener;
-
-import java.awt.event.*;
 import javax.swing.*;
+import Enum.*;
 
 public class GuiModel {
-    private static JFrame frame;
-    private static JPanel myPanel;
+    private JFrame frame;
+    private JPanel myPanel;
     private JButton turnButton;
     private JButton defaultTempButton;
     private JButton modeButton;
@@ -21,8 +19,16 @@ public class GuiModel {
     {
         myPanel = new JPanel();
         room = new Room();
+        room.setCurrentTemp(20.5);
+        room.setFanSpeed(FanSpeed.HIGH);
+        room.setFee(0.0);
+        room.setFeeRate(1.1);
+        room.setState(State.ON);
+        room.setRoomId(1);
+        room.setTargetTemp(30.0);
+        room.setMode(Mode.HOT);
         turnButton = new JButton("开关");
-        defaultTempButton = new JButton("26度");
+        defaultTempButton = new JButton("温度");
         modeButton = new JButton("模式");
         fanButton = new JButton("风速");
 
@@ -36,6 +42,7 @@ public class GuiModel {
         frame.setSize(500, 300);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         guiListener = new GuiListener(frame, room);
         turnButton.addActionListener(guiListener);
         defaultTempButton.addActionListener(guiListener);
@@ -45,8 +52,6 @@ public class GuiModel {
 
     public static void main(String s[]) {
         GuiModel guiModel = new GuiModel(); // 新建Simple1组件
-
-
-        frame.setVisible(true);
+        guiModel.frame.setVisible(true);
     }
 }

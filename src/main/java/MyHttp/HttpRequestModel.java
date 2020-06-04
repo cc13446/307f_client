@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.concurrent.Executors;
 
 public class HttpRequestModel {
-    public void send(JSONObject json) throws IOException, InterruptedException {
+    public JSONObject send(JSONObject json) throws IOException, InterruptedException {
         //创建 builder
         HttpClient.Builder builder = HttpClient.newBuilder();
 
@@ -28,15 +28,6 @@ public class HttpRequestModel {
 
                 //指定线程池
                 .executor(Executors.newFixedThreadPool(5))
-
-                //认证，默认情况下 Authenticator.getDefault() 是 null 值，会报错
-                //.authenticator(Authenticator.getDefault())
-
-                //代理地址
-                //.proxy(ProxySelector.of(new InetSocketAddress("http://www.baidu.com", 8080)))
-
-                //缓存，默认情况下 CookieHandler.getDefault() 是 null 值，会报错
-                //.cookieHandler(CookieHandler.getDefault())
 
                 //创建完成
                 .build();
@@ -59,21 +50,13 @@ public class HttpRequestModel {
                 //超时时间
                 .timeout(Duration.ofMillis(5009))
 
-                //发起一个 post 消息，需要存入一个消息体
-                //.POST(HttpRequest.BodyPublishers.ofString("hello"))
-
-                //发起一个 get 消息，get 不需要消息体
-                //.GET()
-
-                .method("get", HttpRequest.BodyPublishers.ofString(json.toString())) //方法是 POST(...) 和 GET(...) 方法的底层，效果一样
-                //.method("POST",HttpRequest.BodyPublishers.ofString("hello"))
+                .method("get", HttpRequest.BodyPublishers.ofString(json.toString()))
 
                 //创建完成
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         JSONObject temp = JSONObject.fromObject(response.body());
-        System.out.println(temp);
+        return temp;
     }
-
 }
