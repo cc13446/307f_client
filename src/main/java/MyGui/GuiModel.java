@@ -53,5 +53,6 @@ public class GuiModel {
     public static void main(String s[]) {
         GuiModel guiModel = new GuiModel(); // 新建Simple1组件
         guiModel.frame.setVisible(true);
+
     }
 }
