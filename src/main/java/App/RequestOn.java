@@ -45,10 +45,10 @@ public class RequestOn {
         guiModel.getTargetTempButton().setEnabled(true);
         guiModel.getModeButton().setEnabled(true);
         GetFee getFee = new GetFee(room);
-        getFee.run();
+        new Thread(getFee).start();
         IncreaseTemp increaseTemp = new IncreaseTemp(guiModel, room);
-        increaseTemp.run();
+        new Thread(increaseTemp).start();
         DecreaseTemp decreaseTemp = new DecreaseTemp(room);
-        decreaseTemp.run();
+        new Thread(decreaseTemp).start();
     }
 }

@@ -20,10 +20,13 @@ public class GetFee implements Runnable{
     public void run() {
         double preTemperature = room.getCurrentTemp();
         while(true){
+            System.out.println("费用线程运行中");
             if(room.getState() == State.OFF || room.getState() == State.DISCONNECT){
+                System.out.println("费用线程死了");
                 return;
             }
             if(room.getState() == State.SERVE || room.getState() == State.ON || room.getState() == State.HOLDON || room.getState() == State.WAIT){
+                System.out.println("获取费用 上传温度");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", room.getCustomId());
                 jsonObject.put("currentTemperature", room.getCurrentTemp());
