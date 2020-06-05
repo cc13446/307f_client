@@ -23,7 +23,7 @@ public class HttpRequestModel {
         //创建 builder
         HttpClient.Builder builder = HttpClient.newBuilder();
         HttpClient client = builder.version(HttpClient.Version.HTTP_2)
-                .connectTimeout(Duration.ofMillis(5000))
+                .connectTimeout(Duration.ofMillis(50000))
                 .followRedirects(HttpClient.Redirect.NEVER)
                 .executor(Executors.newFixedThreadPool(5))
                 .build();
@@ -31,9 +31,10 @@ public class HttpRequestModel {
         HttpRequest.Builder reBuilder = HttpRequest.newBuilder();
         HttpRequest request = reBuilder.header("Content-Type", "application/json")
                 .version(HttpClient.Version.HTTP_2)
-                .uri(URI.create("http://localhost" + url))
-                .timeout(Duration.ofMillis(5000))
+                .uri(URI.create("http://localhost" + url + "?id=1"))
+                .timeout(Duration.ofMillis(50000))
                 .method(requestMethod, HttpRequest.BodyPublishers.ofString(json.toString()))
+                //.method(requestMethod,HttpRequest.BodyPublishers.ofString("?id=1"))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         if(response.statusCode() == 200)

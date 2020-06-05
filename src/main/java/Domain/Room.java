@@ -6,18 +6,13 @@ public class Room {
     private int roomId;
     private State state;
     private Mode mode;
-    private Double currentTemp;
-    private Double targetTemp;
+    private double currentTemp;
+    private double tempHighLimit;
+    private double tempLowLimit;
+    private double targetTemp;
     private FanSpeed fanSpeed;
     private double fee;
     private double feeRate;
-
-    public Mode getMode() {
-        return mode;
-    }
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
 
     public int getRoomId() {
         return roomId;
@@ -35,19 +30,43 @@ public class Room {
         this.state = state;
     }
 
-    public Double getCurrentTemp() {
+    public Mode getMode() {
+        return mode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
+
+    public double getCurrentTemp() {
         return currentTemp;
     }
 
-    public void setCurrentTemp(Double currentTemp) {
+    public void setCurrentTemp(double currentTemp) {
         this.currentTemp = currentTemp;
     }
 
-    public Double getTargetTemp() {
+    public double getTempHighLimit() {
+        return tempHighLimit;
+    }
+
+    public void setTempHighLimit(double tempHighLimit) {
+        this.tempHighLimit = tempHighLimit;
+    }
+
+    public double getTempLowLimit() {
+        return tempLowLimit;
+    }
+
+    public void setTempLowLimit(double tempLowLimit) {
+        this.tempLowLimit = tempLowLimit;
+    }
+
+    public double getTargetTemp() {
         return targetTemp;
     }
 
-    public void setTargetTemp(Double targetTemp) {
+    public void setTargetTemp(double targetTemp) {
         this.targetTemp = targetTemp;
     }
 
@@ -82,6 +101,8 @@ public class Room {
                 ", state=" + state +
                 ", mode=" + mode +
                 ", currentTemp=" + currentTemp +
+                ", tempHighLimit=" + tempHighLimit +
+                ", tempLowLimit=" + tempLowLimit +
                 ", targetTemp=" + targetTemp +
                 ", fanSpeed=" + fanSpeed +
                 ", fee=" + fee +
