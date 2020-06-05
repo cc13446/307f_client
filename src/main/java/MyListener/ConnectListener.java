@@ -43,18 +43,25 @@ public class ConnectListener implements ActionListener{
                         room.setTempLowLimit(data.getDouble("lowestTemperature"));
                         room.setFanSpeed(FanSpeed.values()[data.getInt("defaultFanSpeed")]);
                         room.setTargetTemp(data.getInt("defaultTargetTemperature"));
-                        room.setState(State.ON);
+                        if (room.getTempLowLimit() == 25 && room.getTempHighLimit()==28){
+                            room.setMode(Mode.COLD);
+                            guiModel.getModeComboBox().setSelectedIndex(1);
+                        }else{
+                            room.setMode(Mode.HOT);
+                            guiModel.getModeComboBox().setSelectedIndex(0);
+                        }
+                        guiModel.getModeComboBox().setEnabled(false);
+                        System.out.println(room);
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(guiModel, "连接失败", "警告", JOptionPane.ERROR_MESSAGE);
-//                    connect.setSelected(false);
-//                    disconnect.setSelected(true);
-//                    return;
+                    connect.setSelected(false);
+                    disconnect.setSelected(true);
+                    return;
                 }
                 guiModel.getTurnOn().setEnabled(true);
                 guiModel.getTurnOff().setEnabled(true);
-                guiModel.getModeComboBox().setEnabled(true);
                 guiModel.getModeButton().setEnabled(true);
                 guiModel.getFanComboBox().setEnabled(true);
                 guiModel.getFanButton().setEnabled(true);
@@ -83,9 +90,9 @@ public class ConnectListener implements ActionListener{
                 } catch (Exception ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(guiModel, "断开连接失败", "警告", JOptionPane.ERROR_MESSAGE);
-//                    connect.setSelected(true);
-//                    disconnect.setSelected(false);
-//                    return;
+                    connect.setSelected(true);
+                    disconnect.setSelected(false);
+                    return;
                 }
                 guiModel.getTurnOn().setEnabled(false);
                 guiModel.getTurnOff().setEnabled(false);

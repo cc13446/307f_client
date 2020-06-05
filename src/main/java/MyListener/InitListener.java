@@ -31,7 +31,7 @@ public class InitListener implements ActionListener{
         try {
             if (e.getSource() == roomIdButton) {
                 int roomId = ((Number) roomIdTextField.getValue()).intValue();
-                if ("null".equals(String.valueOf(room.getRoomId())) || room.getRoomId() != roomId) {
+                if (room.getRoomId() != roomId) {
                     room.setRoomId(roomId);
                     System.out.println("设置房间号" + roomId);
                     JOptionPane.showMessageDialog(jFrame, "设置成功", "恭喜", JOptionPane.INFORMATION_MESSAGE);
@@ -39,7 +39,7 @@ public class InitListener implements ActionListener{
             }
             if (e.getSource() == currentTempButton) {
                 double currentTemp = ((Number) currentTempTextField.getValue()).doubleValue();
-                if ("null".equals(String.valueOf(room.getCurrentTemp())) || room.getCurrentTemp() != currentTemp) {
+                if (room.getCurrentTemp() != currentTemp) {
                     room.setCurrentTemp(currentTemp);
                     System.out.println("设置室温" + currentTemp);
                     JOptionPane.showMessageDialog(jFrame, "设置成功", "恭喜", JOptionPane.INFORMATION_MESSAGE);
@@ -50,8 +50,20 @@ public class InitListener implements ActionListener{
         }
         if(e.getSource() == confirmButton){
             System.out.println("确认");
+            int roomId = ((Number) roomIdTextField.getValue()).intValue();
+            if (room.getRoomId() != roomId) {
+                room.setRoomId(roomId);
+                System.out.println("设置房间号" + roomId);
+            }
+            double currentTemp = ((Number) currentTempTextField.getValue()).doubleValue();
+            if (room.getCurrentTemp() != currentTemp) {
+                room.setCurrentTemp(currentTemp);
+                System.out.println("设置室温" + currentTemp);
+            }
             jFrame.setVisible(false);
             GuiModel guiModel = new GuiModel(room);
+            guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
+            guiModel.getCurrentTempLabel().setText("当前温度为: " + room.getCurrentTemp());
             guiModel.setVisible(true);
 
         }

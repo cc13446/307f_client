@@ -102,4 +102,21 @@ public class Room {
     public void setFeeRate(double feeRate) {
         this.feeRate = feeRate;
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "customId=" + customId +
+                ", roomId=" + roomId +
+                ", state=" + state +
+                ", mode=" + mode +
+                ", currentTemp=" + currentTemp +
+                ", tempHighLimit=" + tempHighLimit +
+                ", tempLowLimit=" + tempLowLimit +
+                ", targetTemp=" + targetTemp +
+                ", fanSpeed=" + fanSpeed +
+                ", fee=" + fee +
+                ", feeRate=" + feeRate +
+                '}';
+    }
 }
