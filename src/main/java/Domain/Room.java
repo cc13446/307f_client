@@ -7,6 +7,7 @@ public class Room {
     private int roomId;
     private State state;
     private Mode mode;
+    private double outTemp;
     private double currentTemp;
     private double tempHighLimit;
     private double tempLowLimit;
@@ -14,6 +15,14 @@ public class Room {
     private FanSpeed fanSpeed;
     private double fee;
     private double feeRate;
+
+    public double getOutTemp() {
+        return outTemp;
+    }
+
+    public void setOutTemp(double outTemp) {
+        this.outTemp = outTemp;
+    }
 
     public int getCustomId() {
         return customId;
@@ -110,6 +119,7 @@ public class Room {
                 ", roomId=" + roomId +
                 ", state=" + state +
                 ", mode=" + mode +
+                ", outTemp=" + outTemp +
                 ", currentTemp=" + currentTemp +
                 ", tempHighLimit=" + tempHighLimit +
                 ", tempLowLimit=" + tempLowLimit +

@@ -16,6 +16,7 @@ public class ConnectListener implements ActionListener{
     private Room room;
     private HttpRequestModel connectHttpRequestModel;
     private HttpRequestModel disconnectHttpRequestModel;
+    private HttpRequestModel turnOffHttpRequestModel;
 
     public ConnectListener(JRadioButton connect, JRadioButton disconnect, GuiModel guiModel, Room room) {
         this.connect = connect;
@@ -24,6 +25,7 @@ public class ConnectListener implements ActionListener{
         this.room = room;
         connectHttpRequestModel = new HttpRequestModel("/room/initial", "POST");
         disconnectHttpRequestModel = new HttpRequestModel("/room/exit", "PUT");
+        turnOffHttpRequestModel = new HttpRequestModel("/room/service", "PUT");
     }
 
     public void actionPerformed(ActionEvent e){
@@ -76,6 +78,36 @@ public class ConnectListener implements ActionListener{
         else if(e.getSource() == disconnect){
             if(disconnect.isSelected()){
                 System.out.println("断连接");
+                if(room.getState() != State.OFF){
+                    System.out.println("关机");
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("id", room.getCustomId());
+
+                    try {
+                        jsonObject = turnOffHttpRequestModel.send(jsonObject, "?id=" + room.getCustomId());
+                        if(jsonObject.getInt("status") == 0){
+                            room.setState(State.OFF);
+                            System.out.println(room);
+                            System.out.println(jsonObject);
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(guiModel, "断开连接自动关机失败", "警告", JOptionPane.ERROR_MESSAGE);
+                        guiModel.getTurnOn().setSelected(true);
+                        guiModel.getTurnOff().setSelected(false);
+                        return;
+                    }
+                    guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+                    guiModel.getFanComboBox().setEnabled(false);
+                    guiModel.getFanButton().setEnabled(false);
+                    guiModel.getTargetTempTextField().setEnabled(false);
+                    guiModel.getTargetTempButton().setEnabled(false);
+                    guiModel.getModeButton().setEnabled(false);
+                    // 停止轮询
+                    // 停止温控
+                    guiModel.getTurnOn().setSelected(false);
+                    guiModel.getTurnOff().setSelected(true);
+                }
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("id", room.getCustomId());
                 try {

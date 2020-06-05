@@ -41,6 +41,7 @@ public class InitListener implements ActionListener{
                 double currentTemp = ((Number) currentTempTextField.getValue()).doubleValue();
                 if (room.getCurrentTemp() != currentTemp) {
                     room.setCurrentTemp(currentTemp);
+                    room.setOutTemp(currentTemp);
                     System.out.println("设置室温" + currentTemp);
                     JOptionPane.showMessageDialog(jFrame, "设置成功", "恭喜", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -58,6 +59,7 @@ public class InitListener implements ActionListener{
             double currentTemp = ((Number) currentTempTextField.getValue()).doubleValue();
             if (room.getCurrentTemp() != currentTemp) {
                 room.setCurrentTemp(currentTemp);
+                room.setOutTemp(currentTemp);
                 System.out.println("设置室温" + currentTemp);
             }
             jFrame.setVisible(false);
