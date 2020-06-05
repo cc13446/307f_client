@@ -2,7 +2,7 @@ package MyListener;
 
 import Domain.Room;
 import MyGui.GuiModel;
-import MyHttp.HttpRequestModel;
+import Enum.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -61,9 +61,11 @@ public class InitListener implements ActionListener{
                 System.out.println("设置室温" + currentTemp);
             }
             jFrame.setVisible(false);
+            room.setState(State.DISCONNECT);
             GuiModel guiModel = new GuiModel(room);
             guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
             guiModel.getCurrentTempLabel().setText("当前温度为: " + room.getCurrentTemp());
+            guiModel.getStateLabel().setText("空调状态为: " + room.getState());
             guiModel.setVisible(true);
 
         }
