@@ -67,7 +67,7 @@ public class GuiModel extends javax.swing.JFrame{
         modeButton = new JButton("设置模式");
         modeButton.setEnabled(false);
         targetTempTextField = new JFormattedTextField(NumberFormat.getNumberInstance());
-        targetTempTextField.setValue(room.getCurrentTemp());
+        targetTempTextField.setValue(room.getTargetTemp());
         targetTempTextField.setEnabled(false);
         targetTempTextField.addKeyListener(new KeyAdapter(){
             public void keyTyped(KeyEvent e) {

@@ -62,11 +62,7 @@ public class ConnectListener implements ActionListener{
                 }
                 guiModel.getTurnOn().setEnabled(true);
                 guiModel.getTurnOff().setEnabled(true);
-                guiModel.getModeButton().setEnabled(true);
-                guiModel.getFanComboBox().setEnabled(true);
-                guiModel.getFanButton().setEnabled(true);
-                guiModel.getTargetTempTextField().setEnabled(true);
-                guiModel.getTargetTempButton().setEnabled(true);
+                guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
                 guiModel.getIdLabel().setText("用户ID为: " + room.getCustomId());
                 guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
                 guiModel.getStateLabel().setText("空调状态为: " + room.getState());

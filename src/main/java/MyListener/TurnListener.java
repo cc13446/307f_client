@@ -50,6 +50,11 @@ public class TurnListener implements ActionListener{
                     return;
                 }
                 guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+                guiModel.getFanComboBox().setEnabled(true);
+                guiModel.getFanButton().setEnabled(true);
+                guiModel.getTargetTempTextField().setEnabled(true);
+                guiModel.getTargetTempButton().setEnabled(true);
+                guiModel.getModeButton().setEnabled(true);
                 // 开启轮询
                 // 温度温控
             }
@@ -71,12 +76,17 @@ public class TurnListener implements ActionListener{
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(guiModel, "开机失败", "警告", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(guiModel, "关机失败", "警告", JOptionPane.ERROR_MESSAGE);
                     turnOn.setSelected(false);
                     turnOff.setSelected(true);
                     return;
                 }
                 guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+                guiModel.getFanComboBox().setEnabled(false);
+                guiModel.getFanButton().setEnabled(false);
+                guiModel.getTargetTempTextField().setEnabled(false);
+                guiModel.getTargetTempButton().setEnabled(false);
+                guiModel.getModeButton().setEnabled(false);
                 // 停止轮询
                 // 停止温控
             }
