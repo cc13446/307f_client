@@ -3,6 +3,7 @@ package Domain;
 import Enum.*;
 
 public class Room {
+    private int customId;
     private int roomId;
     private State state;
     private Mode mode;
@@ -13,6 +14,14 @@ public class Room {
     private FanSpeed fanSpeed;
     private double fee;
     private double feeRate;
+
+    public int getCustomId() {
+        return customId;
+    }
+
+    public void setCustomId(int customId) {
+        this.customId = customId;
+    }
 
     public int getRoomId() {
         return roomId;
@@ -92,21 +101,5 @@ public class Room {
 
     public void setFeeRate(double feeRate) {
         this.feeRate = feeRate;
-    }
-
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomId=" + roomId +
-                ", state=" + state +
-                ", mode=" + mode +
-                ", currentTemp=" + currentTemp +
-                ", tempHighLimit=" + tempHighLimit +
-                ", tempLowLimit=" + tempLowLimit +
-                ", targetTemp=" + targetTemp +
-                ", fanSpeed=" + fanSpeed +
-                ", fee=" + fee +
-                ", feeRate=" + feeRate +
-                '}';
     }
 }

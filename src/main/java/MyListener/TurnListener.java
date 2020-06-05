@@ -14,18 +14,24 @@ public class TurnListener implements ActionListener{
     private JRadioButton turnOff;
     private GuiModel guiModel;
     private Room room;
+    private HttpRequestModel turnOnHttpRequestModel;
+    private HttpRequestModel turnOffHttpRequestModel;
 
     public TurnListener(JRadioButton turnOn, JRadioButton turnOff, GuiModel guiModel, Room room) {
         this.turnOn = turnOn;
         this.turnOff = turnOff;
         this.guiModel = guiModel;
         this.room = room;
+        turnOnHttpRequestModel = new HttpRequestModel("/room/service", "POST");
+        turnOffHttpRequestModel = new HttpRequestModel("/room/service", "PUT");
     }
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == turnOn){
             if(turnOn.isSelected()){
                 System.out.println("开机");
+
+
             }
             turnOn.setSelected(true);
             turnOff.setSelected(false);

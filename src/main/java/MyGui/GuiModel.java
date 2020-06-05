@@ -7,6 +7,8 @@ import Enum.*;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.text.NumberFormat;
 import java.util.Enumeration;
 
@@ -14,7 +16,6 @@ public class GuiModel extends javax.swing.JFrame{
 
     private JPanel panel;
     private JLabel label;
-    private JLabel roomLabel;
     private JRadioButton connect;
     private JRadioButton disconnect;
     private JRadioButton turnOn;
@@ -25,6 +26,7 @@ public class GuiModel extends javax.swing.JFrame{
     private JButton targetTempButton;
     private JComboBox<String> fanComboBox;
     private JButton fanButton;
+    private JLabel roomLabel;
     private JLabel idLabel;
     private JLabel stateLabel;
     private JLabel currentTempLabel;
@@ -37,11 +39,12 @@ public class GuiModel extends javax.swing.JFrame{
     private FanListener fanListener;
     private ModeListener modeListener;
     private TempListener tempListener;
-    GuiModel(Room room)
+
+    public GuiModel(Room room)
     {
         super("空调面板");
         this.room = room;
-        this.setSize(360, 450);
+        this.setSize(360, 500);
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
@@ -52,28 +55,44 @@ public class GuiModel extends javax.swing.JFrame{
         disconnect = new JRadioButton("断开连接");
         disconnect.setSelected(true);
         turnOn = new JRadioButton("开启空调");
+        turnOn.setEnabled(false);
         turnOff = new JRadioButton("关闭空调");
+        turnOff.setEnabled(false);
         turnOff.setSelected(true);
         String[] mode = new String[]{"制热", "制冷", "送风"};
         modeComboBox = new JComboBox<String>(mode);
+        modeComboBox.setEnabled(false);
         modeComboBox.setMaximumSize(new Dimension(200,35));
         modeComboBox.setMinimumSize(new Dimension(200,35));
         modeButton = new JButton("设置模式");
+        modeButton.setEnabled(false);
         targetTempTextField = new JFormattedTextField(NumberFormat.getNumberInstance());
+        targetTempTextField.setValue(room.getCurrentTemp());
+        targetTempTextField.setEnabled(false);
+        targetTempTextField.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if(!Character.isDigit(c))e.consume();
+            }
+        });
         targetTempTextField.setMaximumSize(new Dimension(200,35));
         targetTempTextField.setMinimumSize(new Dimension(200,35));
         targetTempButton = new JButton("设置温度");
+        targetTempButton.setEnabled(false);
         String[] fan = new String[]{"低", "中", "高"};
         fanComboBox = new JComboBox<String>(fan);
+        fanComboBox.setEnabled(false);
         fanComboBox.setSelectedIndex(1);
         fanComboBox.setMaximumSize(new Dimension(200,35));
         fanComboBox.setMinimumSize(new Dimension(200,35));
         fanButton = new JButton("设置风速");
-        idLabel = new JLabel("用户ID为: 1");
-        stateLabel = new JLabel("空调状态为: 服务中");
-        currentTempLabel = new JLabel("当前温度为: 26度");
-        feeLabel = new JLabel("当前费用为: 34元");
-        feeRateLabel = new JLabel("当前费率为: 12元/分钟");
+        fanButton.setEnabled(false);
+        idLabel = new JLabel("用户ID为: ");
+        roomLabel = new JLabel("房间ID为: ");
+        stateLabel = new JLabel("空调状态为: ");
+        currentTempLabel = new JLabel("当前温度为: ");
+        feeLabel = new JLabel("当前费用为: ");
+        feeRateLabel = new JLabel("当前费率为: ");
         panel = new JPanel();
 
         GroupLayout layout = new GroupLayout(panel);
@@ -95,6 +114,7 @@ public class GuiModel extends javax.swing.JFrame{
         GroupLayout.SequentialGroup tempHSeqGroup = layout.createSequentialGroup().addComponent(targetTempTextField).addComponent(targetTempButton);
         GroupLayout.ParallelGroup infoHParallelGroup = layout.createParallelGroup()
                 .addComponent(idLabel, GroupLayout.Alignment.LEADING)
+                .addComponent(roomLabel, GroupLayout.Alignment.LEADING)
                 .addComponent(stateLabel, GroupLayout.Alignment.LEADING)
                 .addComponent(currentTempLabel, GroupLayout.Alignment.LEADING)
                 .addComponent(feeLabel, GroupLayout.Alignment.LEADING)
@@ -127,6 +147,7 @@ public class GuiModel extends javax.swing.JFrame{
                 .addGap(5)
                 .addGroup(tempVParallelGroup)
                 .addGap(10)
+                .addComponent(roomLabel)
                 .addComponent(idLabel)
                 .addComponent(stateLabel)
                 .addComponent(currentTempLabel)
@@ -160,19 +181,156 @@ public class GuiModel extends javax.swing.JFrame{
                 UIManager.put(key, fontRes);
         }
     }
-    public static void main(String s[]) {
-        GuiModel.initGlobalFontSetting(new Font("微软雅黑",Font.BOLD, 18));
-        Room room = new Room();
-        room.setFanSpeed(FanSpeed.MEDIUM);
-        room.setMode(Mode.HOT);
-        room.setTargetTemp(23.0);
-        room.setTempHighLimit(28);
-        room.setTempLowLimit(22);
 
+    public JPanel getPanel() {
+        return panel;
+    }
 
-        GuiModel guiModel = new GuiModel(room); // 新建Simple1组件
+    public void setPanel(JPanel panel) {
+        this.panel = panel;
+    }
 
-        guiModel.setVisible(true);
+    public JLabel getLabel() {
+        return label;
+    }
 
+    public void setLabel(JLabel label) {
+        this.label = label;
+    }
+
+    public JLabel getRoomLabel() {
+        return roomLabel;
+    }
+
+    public void setRoomLabel(JLabel roomLabel) {
+        this.roomLabel = roomLabel;
+    }
+
+    public JRadioButton getConnect() {
+        return connect;
+    }
+
+    public void setConnect(JRadioButton connect) {
+        this.connect = connect;
+    }
+
+    public JRadioButton getDisconnect() {
+        return disconnect;
+    }
+
+    public void setDisconnect(JRadioButton disconnect) {
+        this.disconnect = disconnect;
+    }
+
+    public JRadioButton getTurnOn() {
+        return turnOn;
+    }
+
+    public void setTurnOn(JRadioButton turnOn) {
+        this.turnOn = turnOn;
+    }
+
+    public JRadioButton getTurnOff() {
+        return turnOff;
+    }
+
+    public void setTurnOff(JRadioButton turnOff) {
+        this.turnOff = turnOff;
+    }
+
+    public JComboBox<String> getModeComboBox() {
+        return modeComboBox;
+    }
+
+    public void setModeComboBox(JComboBox<String> modeComboBox) {
+        this.modeComboBox = modeComboBox;
+    }
+
+    public JButton getModeButton() {
+        return modeButton;
+    }
+
+    public void setModeButton(JButton modeButton) {
+        this.modeButton = modeButton;
+    }
+
+    public JFormattedTextField getTargetTempTextField() {
+        return targetTempTextField;
+    }
+
+    public void setTargetTempTextField(JFormattedTextField targetTempTextField) {
+        this.targetTempTextField = targetTempTextField;
+    }
+
+    public JButton getTargetTempButton() {
+        return targetTempButton;
+    }
+
+    public void setTargetTempButton(JButton targetTempButton) {
+        this.targetTempButton = targetTempButton;
+    }
+
+    public JComboBox<String> getFanComboBox() {
+        return fanComboBox;
+    }
+
+    public void setFanComboBox(JComboBox<String> fanComboBox) {
+        this.fanComboBox = fanComboBox;
+    }
+
+    public JButton getFanButton() {
+        return fanButton;
+    }
+
+    public void setFanButton(JButton fanButton) {
+        this.fanButton = fanButton;
+    }
+
+    public JLabel getIdLabel() {
+        return idLabel;
+    }
+
+    public void setIdLabel(JLabel idLabel) {
+        this.idLabel = idLabel;
+    }
+
+    public JLabel getStateLabel() {
+        return stateLabel;
+    }
+
+    public void setStateLabel(JLabel stateLabel) {
+        this.stateLabel = stateLabel;
+    }
+
+    public JLabel getCurrentTempLabel() {
+        return currentTempLabel;
+    }
+
+    public void setCurrentTempLabel(JLabel currentTempLabel) {
+        this.currentTempLabel = currentTempLabel;
+    }
+
+    public JLabel getFeeLabel() {
+        return feeLabel;
+    }
+
+    public void setFeeLabel(JLabel feeLabel) {
+        this.feeLabel = feeLabel;
+    }
+
+    public JLabel getFeeRateLabel() {
+        return feeRateLabel;
+    }
+
+    public void setFeeRateLabel(JLabel feeRateLabel) {
+        this.feeRateLabel = feeRateLabel;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

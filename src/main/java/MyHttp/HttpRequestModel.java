@@ -19,7 +19,7 @@ public class HttpRequestModel {
         this.requestMethod = requestMethod;
     }
 
-    public JSONObject send(JSONObject json) throws IOException, InterruptedException {
+    public JSONObject send(JSONObject json, String parameter) throws IOException, InterruptedException {
         //创建 builder
         HttpClient.Builder builder = HttpClient.newBuilder();
         HttpClient client = builder.version(HttpClient.Version.HTTP_2)
@@ -31,18 +31,16 @@ public class HttpRequestModel {
         HttpRequest.Builder reBuilder = HttpRequest.newBuilder();
         HttpRequest request = reBuilder.header("Content-Type", "application/json")
                 .version(HttpClient.Version.HTTP_2)
-                .uri(URI.create("http://localhost" + url + "?id=1"))
+                .uri(URI.create("http://localhost" + url + parameter))
                 .timeout(Duration.ofMillis(50000))
                 .method(requestMethod, HttpRequest.BodyPublishers.ofString(json.toString()))
                 //.method(requestMethod,HttpRequest.BodyPublishers.ofString("?id=1"))
                 .build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        if(response.statusCode() == 200)
-        {
+        if(response.statusCode() == 200) {
             return JSONObject.fromObject(response.body());
         }
-        else
-        {
+        else {
             return null;
         }
     }
