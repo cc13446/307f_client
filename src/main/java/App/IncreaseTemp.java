@@ -16,14 +16,14 @@ public class IncreaseTemp implements Runnable{
     @Override
     public void run() {
         while (true){
-            System.out.println("升温程序运行中");
+            System.out.println("服务程序运行中");
             if(room.getState() == State.OFF || room.getState() == State.DISCONNECT){
-                System.out.println("升温程序死了");
+                System.out.println("服务程序死了");
                 room.setCurrentTemp(room.getOutTemp());
                 return;
             }
             if(room.getState() == State.SERVE){
-                System.out.println("升温！！！！");
+                System.out.println("服务！！！！");
                 int index = 0;
                 if(room.getTargetTemp() > room.getCurrentTemp()) index = 1;
                 else index = -1;

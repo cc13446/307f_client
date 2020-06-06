@@ -53,7 +53,7 @@ public class GetFee implements Runnable{
                 preTemperature = room.getCurrentTemp();
             }
             try {
-                Thread.sleep(5000);
+                Thread.sleep(4500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -72,7 +72,7 @@ public class GuiModel extends javax.swing.JFrame{
         targetTempTextField.addKeyListener(new KeyAdapter(){
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if(!Character.isDigit(c))e.consume();
+                if(!Character.isDigit(c) && c != '.')e.consume();
             }
         });
         targetTempTextField.setMaximumSize(new Dimension(200,35));

@@ -51,7 +51,7 @@ public class InitGuiModel extends JFrame {
         currentTempTextField.addKeyListener(new KeyAdapter(){
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if(!Character.isDigit(c))e.consume();
+                if(!Character.isDigit(c) && c != '.')e.consume();
             }
         });
         currentTempButton = new JButton("设置当前室温");
