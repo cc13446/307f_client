@@ -44,7 +44,7 @@ public class RequestOn {
         guiModel.getTargetTempTextField().setEnabled(true);
         guiModel.getTargetTempButton().setEnabled(true);
         guiModel.getModeButton().setEnabled(true);
-        GetFee getFee = new GetFee(room);
+        GetFee getFee = new GetFee(room, guiModel);
         new Thread(getFee).start();
         IncreaseTemp increaseTemp = new IncreaseTemp(guiModel, room);
         new Thread(increaseTemp).start();

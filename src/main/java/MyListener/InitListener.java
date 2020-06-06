@@ -1,5 +1,7 @@
 package MyListener;
 
+import App.RequestDisconnect;
+import App.RequestOff;
 import Domain.Room;
 import MyGui.GuiModel;
 import Enum.*;
@@ -7,6 +9,8 @@ import Enum.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class InitListener implements ActionListener{
     private JFrame jFrame;
@@ -66,8 +70,18 @@ public class InitListener implements ActionListener{
             room.setState(State.DISCONNECT);
             GuiModel guiModel = new GuiModel(room);
             guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
-            guiModel.getCurrentTempLabel().setText("当前温度为: " + room.getCurrentTemp());
+            guiModel.getCurrentTempLabel().setText("当前温度为: " + String.format("%.4f", room.getCurrentTemp()) + "度");
             guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+            guiModel.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    super.windowClosing(e);
+                    if(room.getState() != State.DISCONNECT){
+                        new RequestDisconnect(room, guiModel).disConnect();
+                    }
+                    System.exit(0);
+                }
+            });
             guiModel.setVisible(true);
 
         }

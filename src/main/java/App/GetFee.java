@@ -2,6 +2,7 @@ package App;
 
 import Domain.Room;
 import Enum.*;
+import MyGui.GuiModel;
 import MyHttp.HttpRequestModel;
 import net.sf.json.JSONObject;
 
@@ -10,9 +11,11 @@ import javax.swing.*;
 public class GetFee implements Runnable{
     private Room room;
     private HttpRequestModel getFeeHttpRequestModel;
+    private GuiModel guiModel;
 
-    public GetFee(Room room) {
+    public GetFee(Room room, GuiModel guiModel) {
         this.room = room;
+        this.guiModel = guiModel;
         getFeeHttpRequestModel = new HttpRequestModel("/room/fee", "GET");
     }
 
@@ -44,6 +47,12 @@ public class GetFee implements Runnable{
                         if(data.getInt("id") == room.getCustomId()){
                             room.setFee(data.getDouble("fee"));
                         }
+                        guiModel.getIdLabel().setText("用户ID为: " + room.getCustomId());
+                        guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
+                        guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+                        guiModel.getCurrentTempLabel().setText("当前温度为: " +  String.format("%.4f", room.getCurrentTemp()) + "度");
+                        guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee()) + "元");
+                        guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -53,7 +62,7 @@ public class GetFee implements Runnable{
                 preTemperature = room.getCurrentTemp();
             }
             try {
-                Thread.sleep(4500);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

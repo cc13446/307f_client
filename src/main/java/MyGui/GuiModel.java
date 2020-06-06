@@ -83,6 +83,7 @@ public class GuiModel extends javax.swing.JFrame{
         fanComboBox = new JComboBox<String>(fan);
         fanComboBox.setEnabled(false);
         fanComboBox.setSelectedIndex(1);
+        room.setFeeRate((double) 2/3);
         fanComboBox.setMaximumSize(new Dimension(200,35));
         fanComboBox.setMinimumSize(new Dimension(200,35));
         fanButton = new JButton("设置风速");
@@ -333,4 +334,5 @@ public class GuiModel extends javax.swing.JFrame{
     public void setRoom(Room room) {
         this.room = room;
     }
+
 }

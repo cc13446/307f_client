@@ -39,6 +39,7 @@ public class FanListener implements ActionListener{
                         System.out.println(room);
                         System.out.println(jsonObject);
                         room.setFanSpeed(FanSpeed.values()[index]);
+                        room.setFeeRate(((double)index+1)/3);
                         System.out.println("设置风速" + FanSpeed.values()[index]);
                     }
                 } catch (Exception ex) {
