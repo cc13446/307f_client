@@ -20,6 +20,7 @@ public class IncreaseTemp implements Runnable{
             if(room.getState() == State.OFF || room.getState() == State.DISCONNECT){
                 System.out.println("服务程序死了");
                 room.setCurrentTemp(room.getOutTemp());
+                guiModel.getCurrentTempLabel().setText("当前温度为: " +  String.format("%.4f", room.getCurrentTemp()) + "度");
                 return;
             }
             if(room.getState() == State.SERVE){

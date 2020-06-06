@@ -23,7 +23,8 @@ public class DecreaseTemp implements Runnable{
                 System.out.println("回温！！！");
                 int index;
                 if(room.getTargetTemp() > room.getOutTemp()) index = 1;
-                else index = -1;
+                else if(room.getTargetTemp() < room.getOutTemp()) index = -1;
+                else index = 0;
                 room.setCurrentTemp(room.getCurrentTemp() - index*0.5/40);
             }
             try {

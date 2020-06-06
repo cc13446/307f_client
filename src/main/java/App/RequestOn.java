@@ -44,6 +44,10 @@ public class RequestOn {
         guiModel.getTargetTempTextField().setEnabled(true);
         guiModel.getTargetTempButton().setEnabled(true);
         guiModel.getModeButton().setEnabled(true);
+        // 状态初始化
+        guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+        guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+
         GetFee getFee = new GetFee(room, guiModel);
         new Thread(getFee).start();
         IncreaseTemp increaseTemp = new IncreaseTemp(guiModel, room);
