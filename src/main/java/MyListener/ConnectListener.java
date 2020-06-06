@@ -70,6 +70,9 @@ public class ConnectListener implements ActionListener{
                 guiModel.getCurrentTempLabel().setText("当前温度为: " + String.format("%.4f", room.getCurrentTemp()) + "度");
                 guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee())+ "元");
                 guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
+                // 状态初始化
+                guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+                guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
             }
             connect.setSelected(true);
             disconnect.setSelected(false);
