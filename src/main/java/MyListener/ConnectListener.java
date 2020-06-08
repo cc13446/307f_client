@@ -44,7 +44,9 @@ public class ConnectListener implements ActionListener{
                         room.setTempLowLimit(data.getDouble("lowestTemperature"));
                         room.setFanSpeed(FanSpeed.values()[data.getInt("defaultFanSpeed")]);
                         room.setTargetTemp(data.getInt("defaultTargetTemperature"));
-                        if (room.getTempLowLimit() == 25 && room.getTempHighLimit()==28){
+                        room.setDefaultFanSpeed(FanSpeed.values()[data.getInt("defaultFanSpeed")]);
+                        room.setDefaultTargetTemp(data.getInt("defaultTargetTemperature"));
+                        if (room.getTempLowLimit() == 18 && room.getTempHighLimit()==28){
                             room.setMode(Mode.COLD);
                             guiModel.getModeComboBox().setSelectedIndex(1);
                         }else{
@@ -71,7 +73,7 @@ public class ConnectListener implements ActionListener{
                 guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee())+ "元");
                 guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
                 // 状态初始化
-                guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+                guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
                 guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
             }
             connect.setSelected(true);

@@ -44,8 +44,8 @@ public class TempListener implements ActionListener{
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                        JOptionPane.showMessageDialog(guiModel, "设置温度失败", "警告", JOptionPane.ERROR_MESSAGE);
                         targetTempTextField.setValue(room.getTargetTemp());
+                        JOptionPane.showMessageDialog(guiModel, "设置温度失败", "警告", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }

@@ -45,7 +45,7 @@ public class RequestOn {
         guiModel.getTargetTempButton().setEnabled(true);
         guiModel.getModeButton().setEnabled(true);
         // 状态初始化
-        guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+        guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
         guiModel.getTurnOff().setSelected(false);
         guiModel.getTurnOn().setSelected(true);

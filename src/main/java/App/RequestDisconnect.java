@@ -24,7 +24,7 @@ public class RequestDisconnect {
     }
 
     public void disConnect(){
-        if(room.getState() != State.OFF){
+        if(room.getState() != State.OFF && room.getState() != State.CONNECT){
             System.out.println("关机");
             requestOff.turnOff();
         }
@@ -57,7 +57,7 @@ public class RequestDisconnect {
         guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee()) + "元");
         guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
         // 状态初始化
-        guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+        guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
         guiModel.getConnect().setSelected(false);
         guiModel.getDisconnect().setSelected(true);

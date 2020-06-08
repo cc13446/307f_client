@@ -12,9 +12,27 @@ public class Room {
     private double tempHighLimit;
     private double tempLowLimit;
     private double targetTemp;
+    private double defaultTargetTemp;
     private FanSpeed fanSpeed;
+    private FanSpeed defaultFanSpeed;
     private double fee;
     private double feeRate;
+
+    public double getDefaultTargetTemp() {
+        return defaultTargetTemp;
+    }
+
+    public void setDefaultTargetTemp(double defaultTargetTemp) {
+        this.defaultTargetTemp = defaultTargetTemp;
+    }
+
+    public FanSpeed getDefaultFanSpeed() {
+        return defaultFanSpeed;
+    }
+
+    public void setDefaultFanSpeed(FanSpeed defaultFanSpeed) {
+        this.defaultFanSpeed = defaultFanSpeed;
+    }
 
     public double getOutTemp() {
         return outTemp;

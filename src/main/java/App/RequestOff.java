@@ -33,8 +33,8 @@ public class RequestOff {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(guiModel, "关机失败", "警告", JOptionPane.ERROR_MESSAGE);
-            guiModel.getTurnOn().setSelected(true);
-            guiModel.getTurnOff().setSelected(false);
+            guiModel.getTurnOn().setSelected(false);
+            guiModel.getTurnOff().setSelected(true);
             return;
         }
         guiModel.getStateLabel().setText("空调状态为: " + room.getState());
@@ -43,8 +43,10 @@ public class RequestOff {
         guiModel.getTargetTempTextField().setEnabled(false);
         guiModel.getTargetTempButton().setEnabled(false);
         guiModel.getModeButton().setEnabled(false);
+        room.setTargetTemp(room.getDefaultTargetTemp());
+        room.setFanSpeed(room.getDefaultFanSpeed());
         // 状态初始化
-        guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+        guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
         guiModel.getTurnOff().setSelected(true);
         guiModel.getTurnOn().setSelected(false);
