@@ -19,7 +19,7 @@ public class RequestOff {
         this.guiModel = guiModel;
     }
 
-    public void turnOff(){
+    public boolean turnOff(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", room.getCustomId());
 
@@ -33,9 +33,9 @@ public class RequestOff {
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(guiModel, "关机失败", "警告", JOptionPane.ERROR_MESSAGE);
-            guiModel.getTurnOn().setSelected(false);
-            guiModel.getTurnOff().setSelected(true);
-            return;
+            guiModel.getTurnOn().setSelected(true);
+            guiModel.getTurnOff().setSelected(false);
+            return false;
         }
         guiModel.getStateLabel().setText("空调状态为: " + room.getState());
         guiModel.getFanComboBox().setEnabled(false);
@@ -45,10 +45,13 @@ public class RequestOff {
         guiModel.getModeButton().setEnabled(false);
         room.setTargetTemp(room.getDefaultTargetTemp());
         room.setFanSpeed(room.getDefaultFanSpeed());
+        room.setFeeRate((double)2/3);
         // 状态初始化
         guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+        guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
         guiModel.getTurnOff().setSelected(true);
         guiModel.getTurnOn().setSelected(false);
+        return true;
     }
 }

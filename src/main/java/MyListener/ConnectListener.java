@@ -80,12 +80,15 @@ public class ConnectListener implements ActionListener{
             disconnect.setSelected(false);
         }
         else if(e.getSource() == disconnect){
+            boolean flag = true;
             if(disconnect.isSelected()){
                 System.out.println("断连接");
-                requestDisconnect.disConnect();
+                flag = requestDisconnect.disConnect();
             }
-            connect.setSelected(false);
-            disconnect.setSelected(true);
+            if(flag){
+                connect.setSelected(false);
+                disconnect.setSelected(true);
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ public class RequestOn {
         turnOnHttpRequestModel = new HttpRequestModel("/room/service", "POST");
     }
 
-    public void turnOn(){
+    public boolean turnOn(){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", room.getCustomId());
         jsonObject.put("targetTemperature", room.getTargetTemp());
@@ -36,7 +36,7 @@ public class RequestOn {
             JOptionPane.showMessageDialog(guiModel, "开机失败", "警告", JOptionPane.ERROR_MESSAGE);
             guiModel.getTurnOn().setSelected(false);
             guiModel.getTurnOff().setSelected(true);
-            return;
+            return false;
         }
         guiModel.getStateLabel().setText("空调状态为: " + room.getState());
         guiModel.getFanComboBox().setEnabled(true);
@@ -56,5 +56,6 @@ public class RequestOn {
         new Thread(increaseTemp).start();
         DecreaseTemp decreaseTemp = new DecreaseTemp(room);
         new Thread(decreaseTemp).start();
+        return true;
     }
 }

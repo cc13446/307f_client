@@ -29,20 +29,26 @@ public class TurnListener implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == turnOn){
+            boolean flag = true;
             if(turnOn.isSelected()){
                 System.out.println("开机");
-                requestOn.turnOn();
+                flag = requestOn.turnOn();
             }
-            turnOn.setSelected(true);
-            turnOff.setSelected(false);
+            if(flag){
+                turnOn.setSelected(true);
+                turnOff.setSelected(false);
+            }
         }
         else if(e.getSource() == turnOff){
+            boolean flag = true;
             if(turnOff.isSelected()){
                 System.out.println("关机");
-                requestOff.turnOff();
+                flag = requestOff.turnOff();
             }
-            turnOn.setSelected(false);
-            turnOff.setSelected(true);
+            if(flag){
+                turnOn.setSelected(false);
+                turnOff.setSelected(true);
+            }
         }
     }
 }

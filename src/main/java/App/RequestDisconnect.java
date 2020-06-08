@@ -23,10 +23,13 @@ public class RequestDisconnect {
         this.requestOff = new RequestOff(room, guiModel);
     }
 
-    public void disConnect(){
+    public boolean disConnect(){
         if(room.getState() != State.OFF && room.getState() != State.CONNECT){
             System.out.println("关机");
-            requestOff.turnOff();
+            boolean flag = requestOff.turnOff();
+            if(!flag){
+                return false;
+            }
         }
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", room.getCustomId());
@@ -40,7 +43,7 @@ public class RequestDisconnect {
             JOptionPane.showMessageDialog(guiModel, "断开连接失败", "警告", JOptionPane.ERROR_MESSAGE);
             guiModel.getConnect().setSelected(true);
             guiModel.getDisconnect().setSelected(false);
-            return;
+            return false;
         }
         guiModel.getTurnOn().setEnabled(false);
         guiModel.getTurnOff().setEnabled(false);
@@ -61,5 +64,6 @@ public class RequestDisconnect {
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
         guiModel.getConnect().setSelected(false);
         guiModel.getDisconnect().setSelected(true);
+        return true;
     }
 }
