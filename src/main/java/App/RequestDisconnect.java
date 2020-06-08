@@ -59,5 +59,7 @@ public class RequestDisconnect {
         // 状态初始化
         guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+        guiModel.getConnect().setSelected(false);
+        guiModel.getDisconnect().setSelected(true);
     }
 }

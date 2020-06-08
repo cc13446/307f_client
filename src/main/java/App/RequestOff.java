@@ -46,5 +46,7 @@ public class RequestOff {
         // 状态初始化
         guiModel.getModeComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+        guiModel.getTurnOff().setSelected(true);
+        guiModel.getTurnOn().setSelected(false);
     }
 }
