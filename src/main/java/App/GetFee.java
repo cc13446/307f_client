@@ -56,7 +56,36 @@ public class GetFee implements Runnable{
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    System.out.println("get Fee Error");
+                    JOptionPane.showMessageDialog(guiModel, "远端服务器已经关机", "警告", JOptionPane.ERROR_MESSAGE);
+                    // getFee失败 代表远端服务器关闭，断开连接
+                    // 房间初始化
+                    room.setTargetTemp(room.getDefaultTargetTemp());
+                    room.setFanSpeed(room.getDefaultFanSpeed());
+                    room.setFeeRate(0.5);
+                    room.setState(State.DISCONNECT);
+                    room.setCurrentTemp(room.getOutTemp());
+                    room.setFee(0);
+                    // 状态初始化
+                    guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+                    guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+                    guiModel.getTurnOn().setEnabled(false);
+                    guiModel.getTurnOff().setEnabled(false);
+                    guiModel.getModeComboBox().setEnabled(false);
+                    guiModel.getModeButton().setEnabled(false);
+                    guiModel.getFanComboBox().setEnabled(false);
+                    guiModel.getFanButton().setEnabled(false);
+                    guiModel.getTargetTempTextField().setEnabled(false);
+                    guiModel.getTargetTempButton().setEnabled(false);
+                    guiModel.getIdLabel().setText("用户ID为: " + room.getCustomId());
+                    guiModel.getRoomLabel().setText("房间ID为: " + room.getRoomId());
+                    guiModel.getStateLabel().setText("空调状态为: " + room.getState());
+                    guiModel.getCurrentTempLabel().setText("当前温度为: " + String.format("%.4f", room.getCurrentTemp()) + "度");
+                    guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee()) + "元");
+                    guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
+                    guiModel.getTurnOff().setSelected(true);
+                    guiModel.getTurnOn().setSelected(false);
+                    guiModel.getConnect().setSelected(false);
+                    guiModel.getDisconnect().setSelected(true);
                     return;
                 }
                 preTemperature = room.getCurrentTemp();

@@ -45,6 +45,15 @@ public class RequestDisconnect {
             guiModel.getDisconnect().setSelected(false);
             return false;
         }
+        // 状态初始化
+        guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
+        guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+        room.setTargetTemp(room.getDefaultTargetTemp());
+        room.setFanSpeed(room.getDefaultFanSpeed());
+        room.setFeeRate(0.5);
+        room.setState(State.DISCONNECT);
+        room.setCurrentTemp(room.getOutTemp());
+        room.setFee(0);
         guiModel.getTurnOn().setEnabled(false);
         guiModel.getTurnOff().setEnabled(false);
         guiModel.getModeComboBox().setEnabled(false);
@@ -59,9 +68,7 @@ public class RequestDisconnect {
         guiModel.getCurrentTempLabel().setText("当前温度为: " + String.format("%.4f", room.getCurrentTemp()) + "度");
         guiModel.getFeeLabel().setText("当前费用为: " + String.format("%.4f", room.getFee()) + "元");
         guiModel.getFeeRateLabel().setText("当前费率为: " + String.format("%.2f", room.getFeeRate()) + "元/分钟");
-        // 状态初始化
-        guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
-        guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
+
         guiModel.getConnect().setSelected(false);
         guiModel.getDisconnect().setSelected(true);
         return true;

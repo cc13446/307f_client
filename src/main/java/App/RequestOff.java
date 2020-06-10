@@ -46,6 +46,8 @@ public class RequestOff {
         room.setTargetTemp(room.getDefaultTargetTemp());
         room.setFanSpeed(room.getDefaultFanSpeed());
         room.setFeeRate(0.5);
+        room.setState(State.OFF);
+        room.setCurrentTemp(room.getOutTemp());
         // 状态初始化
         guiModel.getFanComboBox().setSelectedIndex(room.getFanSpeed().ordinal());
         guiModel.getTargetTempTextField().setValue(room.getTargetTemp());
