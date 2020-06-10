@@ -51,7 +51,7 @@ public class TempListener implements ActionListener{
                 }
             }
             else{
-                targetTempTextField.setValue(null);
+                targetTempTextField.setValue(room.getTargetTemp());
                 JOptionPane.showMessageDialog(guiModel, "温度不再区间内", "警告！", JOptionPane.ERROR_MESSAGE);
             }
 

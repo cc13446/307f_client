@@ -22,6 +22,7 @@ public class RequestOn {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", room.getCustomId());
         jsonObject.put("targetTemperature", room.getTargetTemp());
+        jsonObject.put("currentTemperature",room.getCurrentTemp());
         jsonObject.put("fanSpeed", room.getFanSpeed().ordinal());
 
         try {
