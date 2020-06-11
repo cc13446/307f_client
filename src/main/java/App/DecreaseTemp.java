@@ -22,10 +22,16 @@ public class DecreaseTemp implements Runnable{
             if(room.getState() == State.HOLDON){
                 System.out.println("回温！！！");
                 int index;
-                if(room.getTargetTemp() > room.getOutTemp()) index = 1;
-                else if(room.getTargetTemp() < room.getOutTemp()) index = -1;
+                if(room.getCurrentTemp() == room.getOutTemp()) index = 0;
+                else if(room.getCurrentTemp() > room.getOutTemp()) index = 1;
+                else if(room.getCurrentTemp() < room.getOutTemp()) index = -1;
                 else index = 0;
-                room.setCurrentTemp(room.getCurrentTemp() - index*0.5/40);
+                if(Math.abs(room.getCurrentTemp() - room.getOutTemp()) <= 1.0/40) {
+                    room.setCurrentTemp(room.getOutTemp());
+                }else {
+                    room.setCurrentTemp(room.getCurrentTemp() - index*0.5/40);
+                }
+
             }
             try {
                 Thread.sleep(60000/40);
