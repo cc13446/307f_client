@@ -26,7 +26,7 @@ public class RequestOn {
         jsonObject.put("fanSpeed", room.getFanSpeed().ordinal());
 
         try {
-            jsonObject = turnOnHttpRequestModel.send(jsonObject, "?id=" + room.getCustomId() + "&targetTemperature=" + room.getTargetTemp() + "&fanSpeed=" + room.getFanSpeed().ordinal());
+            jsonObject = turnOnHttpRequestModel.send(jsonObject, "?id=" + room.getCustomId() + "&targetTemperature=" + room.getTargetTemp() + "&fanSpeed=" + room.getFanSpeed().ordinal() + "&currentTemperature=" + room.getCurrentTemp());
             if(jsonObject.getInt("status") == 0){
                 room.setState(State.ON);
                 System.out.println(room);

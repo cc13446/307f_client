@@ -18,6 +18,7 @@ public class IncreaseTemp implements Runnable{
         while (true){
             System.out.println("服务程序运行中");
             if(room.getState() == State.OFF || room.getState() == State.DISCONNECT){
+                // 空调关闭 回温线程关闭
                 System.out.println("服务程序死了");
                 room.setCurrentTemp(room.getOutTemp());
                 guiModel.getCurrentTempLabel().setText("当前温度为: " +  String.format("%.4f", room.getCurrentTemp()) + "度");

@@ -56,8 +56,8 @@ public class GetFee implements Runnable{
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
-                    JOptionPane.showMessageDialog(guiModel, "远端服务器已经关机", "警告", JOptionPane.ERROR_MESSAGE);
                     // getFee失败 代表远端服务器关闭，断开连接
+                    JOptionPane.showMessageDialog(guiModel, "远端服务器已经关机", "警告", JOptionPane.ERROR_MESSAGE);
                     // 房间初始化
                     room.setTargetTemp(room.getDefaultTargetTemp());
                     room.setFanSpeed(room.getDefaultFanSpeed());

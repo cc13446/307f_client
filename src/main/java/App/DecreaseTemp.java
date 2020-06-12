@@ -15,7 +15,9 @@ public class DecreaseTemp implements Runnable{
         while (true){
             System.out.println("回温线程运行中");
             if(room.getState() == State.OFF || room.getState() == State.DISCONNECT){
+                // 空调关闭 回温线程关闭
                 System.out.println("回温线程死了");
+                // 室温恢复
                 room.setCurrentTemp(room.getOutTemp());
                 return;
             }
@@ -27,6 +29,7 @@ public class DecreaseTemp implements Runnable{
                 else if(room.getCurrentTemp() < room.getOutTemp()) index = -1;
                 else index = 0;
                 if(Math.abs(room.getCurrentTemp() - room.getOutTemp()) <= 1.0/40) {
+                    // 温度临近时，直接置为初始室温
                     room.setCurrentTemp(room.getOutTemp());
                 }else {
                     room.setCurrentTemp(room.getCurrentTemp() - index*0.5/40);
